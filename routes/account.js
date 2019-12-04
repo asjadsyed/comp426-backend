@@ -62,6 +62,28 @@ router.post('/login', async function (req, res) {
 });
 
 /**
+ * Given a name, will check if a user
+ * if one with that name exists in the
+ * database.
+ */
+router.post('/exists', function (req, res) {
+  if (!req.body.name) {
+    res.status(401).send({msg: 'Expected a payload of name and pass.'});
+    return;
+  }
+
+  const name = req.body.name.toLowerCase();
+
+  let user = accountStore.get(`users.${name}`);
+  if (user) {
+    res.status(406).send({msg: `User '${req.body.name}' is already a registered user.`});
+  } else {
+    res.send({msg: `User '${req.body.name}' has not yet been registered.`});
+  }
+  return;
+});
+
+/**
  * Given a name and pass, will create a user
  * if one with that name doesn't exist in the
  * database.
