@@ -62,9 +62,9 @@ router.post('/login', async function (req, res) {
 });
 
 /**
- * Given a name, will check if a user
- * if one with that name exists in the
- * database.
+ * Given a name, returns an error
+ * code if a user with that name
+ * already exists in the database.
  */
 router.post('/exists', function (req, res) {
   if (!req.body.name) {
